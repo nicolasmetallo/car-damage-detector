@@ -1,0 +1,1 @@
+{"region":{"name":{"type":"text","description":"Name of the object","default_value":"damage"},"type":{"type":"dropdown","description":"Category of object","options":{"scratch":"Car Scratch","dent":"Car Dent","unknown":"Unknown (damage)"},"default_options":{}}},"file":{}}

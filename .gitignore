@@ -2,12 +2,12 @@
 # Created by https://www.gitignore.io/api/python
 
 # Data files and directories common in repo root
-images/
-logs/
+raw_images/
 *.h5
 results/
 temp/
 test/
+.DS_Store
 
 ### Python ###
 # Byte-compiled / optimized / DLL files

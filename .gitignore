@@ -2,11 +2,9 @@
 # Created by https://www.gitignore.io/api/python
 
 # Data files and directories common in repo root
-raw_images/
+images/
 *.h5
-results/
-temp/
-test/
+balloon.py
 .DS_Store
 
 ### Python ###

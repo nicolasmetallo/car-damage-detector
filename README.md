@@ -20,6 +20,9 @@ Usage: import the module (see Jupyter notebooks for examples), or run from
     python3 custom.py splash --weights=last --video=<URL or path to file>
 """
 ```
+
+![Output Detection](output.gif)
+
 ## Gather training data
 Use the [google-images-download](https://github.com/hardikvasa/google-images-download) library or look manually for images in Google Images or Flickr. I chose Flickr and filter by the photos allowed for 'commercial and other mod uses'. I downloaded 80 images into the 'images' folder.
 

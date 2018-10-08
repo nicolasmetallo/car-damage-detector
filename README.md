@@ -46,7 +46,7 @@ $ python3 build_dataset.py --data_dir='images' --output_dir='dataset'
 There's no standard way to annotate images, but the [VIA tool](http://www.robots.ox.ac.uk/~vgg/software/via/via_demo.html) is pretty straightforward. It saves the annotation in a JSON file, and each mask is a set of polygon points. Here's a [demo](http://www.robots.ox.ac.uk/~vgg/software/via/via_demo.html) to get used to the UI and the parameters to set. Annotate the images in the 'train' and 'val' folders separately. Once you are done, save the exported 'via_region_data.json' to each folder.
 
 ## Train your model
-We download the 'coco' weights and start training from that point with our custom images (transfer learning)
+We download the 'coco' weights and start training from that point with our custom images (transfer learning). It will download the weights automatically if it can't find them. Training takes around 4 mins per epoch with 10 epochs.
 ```
 $ python3 custom.py --dataset='dataset' --weights=coco # it will download coco weights if you don't have them
 ```

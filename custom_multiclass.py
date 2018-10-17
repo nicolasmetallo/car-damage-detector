@@ -87,8 +87,8 @@ class CustomDataset(utils.Dataset):
         subset: Subset to load: train or val
         """
         # Add classes. We have only one class to add.
-        self.add_class("part", 1, "rear_bump")
-        self.add_class("part", 2, "front_bump")
+        self.add_class("part", 1, "rear_bumper")
+        self.add_class("part", 2, "front_bumper")
         self.add_class("part", 3, "headlamp")
         self.add_class("part", 4, "door")
         self.add_class("part", 5, "hood")
@@ -120,6 +120,8 @@ class CustomDataset(utils.Dataset):
         # annotations. Skip unannotated images.
         annotations = [a for a in annotations if a['regions']]
 
+        class_nums = {'rear_bumper': 1, 'front_bumper': 2, 'headlamp': 3, 'hood': 4, 'door': 5}
+
         # Add images
         for a in annotations:
             # print(a)
@@ -127,8 +129,8 @@ class CustomDataset(utils.Dataset):
             # the outline of each object instance. There are stores in the
             # shape_attributes (see json format above)
             polygons = [r['shape_attributes'] for r in a['regions']]
-            objects = [s['region_attributes'] for s in a['regions'].values()]
-            num_ids = [int(n['object']) for n in objects]
+            objects = [s['region_attributes'] for s in a['regions']()]
+            num_ids = [int(class_nums[n['name']]) for n in objects]
 
             # load_mask() needs the image size to convert polygons to masks.
             # Unfortunately, VIA doesn't include it in JSON, so we must read

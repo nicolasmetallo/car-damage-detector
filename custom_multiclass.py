@@ -129,7 +129,7 @@ class CustomDataset(utils.Dataset):
             # the outline of each object instance. There are stores in the
             # shape_attributes (see json format above)
             polygons = [r['shape_attributes'] for r in a['regions']]
-            objects = [s['region_attributes'] for s in a['regions']()]
+            objects = [s['region_attributes'] for s in a['regions']]
             num_ids = [int(class_nums[n['name']]) for n in objects]
 
             # load_mask() needs the image size to convert polygons to masks.

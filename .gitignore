@@ -6,6 +6,8 @@ images/
 *.h5
 balloon.py
 .DS_Store
+*.csv
+car*.json
 
 ### Python ###
 # Byte-compiled / optimized / DLL files

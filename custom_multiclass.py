@@ -187,7 +187,7 @@ class CustomDataset(utils.Dataset):
         # print("info['num_ids']=", info['num_ids'])
         # Map class names to class IDs.
         num_ids = np.array(num_ids, dtype=np.int32)
-        return mask, num_ids
+        return mask.astype(np.bool), num_ids
 
     #
     # def load_mask(self, image_id):

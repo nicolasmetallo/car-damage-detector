@@ -120,7 +120,7 @@ class CustomDataset(utils.Dataset):
         # annotations. Skip unannotated images.
         annotations = [a for a in annotations if a['regions']]
 
-        class_nums = {'rear_bumper': 1, 'front_bumper': 2, 'headlamp': 3, 'hood': 4, 'door': 5}
+        #class_nums = {'rear_bumper': 1, 'front_bumper': 2, 'headlamp': 3, 'hood': 4, 'door': 5}
 
         # Add images
         for a in annotations:
@@ -128,10 +128,26 @@ class CustomDataset(utils.Dataset):
             # Get the x, y coordinaets of points of the polygons that make up
             # the outline of each object instance. There are stores in the
             # shape_attributes (see json format above)
-            polygons = [r['shape_attributes'] for r in a['regions']]
+            for r in a['regions']:
+                polygons = [{'all_points_x': r['shape_attributes']['all_points_x'], 'all_points_y': r['shape_attributes']['all_points_y']}]
+            #polygons = [r['shape_attributes'] for r in a['regions']]
             objects = [s['region_attributes'] for s in a['regions']]
-            num_ids = [int(class_nums[n['name']]) for n in objects]
-
+            #num_ids = [int(class_nums[n['name']]) for n in objects]
+            num_ids = []
+            for n in objects:
+                try:
+                    if n['name'] == 'rear_bumper':
+                        num_ids.append(1)
+                    elif n['name'] == 'front_bumper':
+                        num_ids.append(2)
+                    elif n['name'] == 'headlamp':
+                        num_ids.append(3)
+                    elif n['name'] == 'hood':
+                        num_ids.append(4)
+                    elif n['name'] == 'door':
+                        num_ids.append(5)
+                except:
+                    pass
             # load_mask() needs the image size to convert polygons to masks.
             # Unfortunately, VIA doesn't include it in JSON, so we must read
             # the image. This is only managable since the dataset is tiny.

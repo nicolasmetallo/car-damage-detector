@@ -68,6 +68,11 @@ class CustomConfig(Config):
     # Number of classes (including background)
     NUM_CLASSES = 1 + 5  # Background + 5 classes (rear bump, front bump, headlamp, door, hood)
 
+    # Use smaller images for faster training. Set the limits of the small side
+    # the large side, and that determines the image shape.
+    IMAGE_MIN_DIM = 300
+    IMAGE_MAX_DIM = 300
+
     # Number of training steps per epoch
     STEPS_PER_EPOCH = 100
 

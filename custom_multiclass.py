@@ -170,11 +170,12 @@ class CustomDataset(utils.Dataset):
             one mask per instance.
         class_ids: a 1D array of class IDs of the instance masks.
         """
-        # If not a number dataset image, delegate to parent class.
-        info = self.image_info[image_id]
-        if info["source"] != "part":
+        # If not a balloon dataset image, delegate to parent class.
+        image_info = self.image_info[image_id]
+        if image_info["source"] != "balloon":
             return super(self.__class__, self).load_mask(image_id)
-        num_ids = info['num_ids']
+
+        info = self.image_info[image_id]
         # Convert polygons to a bitmap mask of shape
         # [height, width, instance_count]
         mask = np.zeros([info["height"], info["width"], len(info["polygons"])],
@@ -186,35 +187,8 @@ class CustomDataset(utils.Dataset):
             mask[rr, cc, i] = 1
         # print("info['num_ids']=", info['num_ids'])
         # Map class names to class IDs.
-        num_ids = np.array(num_ids, dtype=np.int32)
-        return mask.astype(np.bool), num_ids
-
-    #
-    # def load_mask(self, image_id):
-    #     """Generate instance masks for an image.
-    #    Returns:
-    #     masks: A bool array of shape [height, width, instance count] with
-    #         one mask per instance.
-    #     class_ids: a 1D array of class IDs of the instance masks.
-    #     """
-    #     # If not a balloon dataset image, delegate to parent class.
-    #     image_info = self.image_info[image_id]
-    #     if image_info["source"] != "part":
-    #         return super(self.__class__, self).load_mask(image_id)
-    #     # Convert polygons to a bitmap mask of shape
-    #     # [height, width, instance_count]
-    #     num_ids = info['num_ids']
-    #     mask = np.zeros([info["height"], info["width"], len(info["polygons"])],
-    #                     dtype=np.uint8)
-    #     for i, p in enumerate(info["polygons"]):
-    #         # Get indexes of pixels inside the polygon and set them to 1
-    #         rr, cc = skimage.draw.polygon(p['all_points_y'], p['all_points_x'])
-    #         mask[rr, cc, i] = 1
-    #     num_ids = np.array(num_ids, dtype=np.int32)
-    #     # Return mask, and array of class IDs of each instance. Since we have
-    #     # one class ID only, we return an array of 1s
-    #     #return mask.astype(np.bool), np.ones([mask.shape[-1]], dtype=np.int32)
-    #     return mask, num_ids
+        num_ids = info['num_ids']
+        return mask.astype(np.bool), num_ids.astype(np.int32)
 
     def image_reference(self, image_id):
         """Return the path of the image."""
